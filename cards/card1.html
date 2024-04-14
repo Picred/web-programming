@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Card 1 CSS</title>
+
+    <style>
+        body, html{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .card{
+            position: relative;
+            display: inline-block;
+            border: 1px solid #ddd;
+            border-radius: 24px;
+            height: 250px;
+            width: 200px;
+            margin-left: 100px;
+        }
+
+        .card>.header{
+            width: inherit;
+            position: relative;
+            display: inline-block;
+            height: 35%;
+            background-color: #44f;
+            border-top-left-radius: 22px;
+            border-top-right-radius: 22px;
+        }
+
+        .card>.header>.propic{
+            position: absolute;
+            /* position: relative; */
+            /* text-align: center; Non si centra */
+            width: 60px;
+            height:  60px;
+            border-radius: 50%;
+            text-align: center;
+            left: 35%;
+            top: 55%;
+            border: 2px solid white;
+            padding: 1px;
+        }
+
+        .card>.professions>h4{
+            text-align: center;
+            margin: 0;
+            margin-top: 20px;
+        }
+
+        .card>.professions>h6{
+            text-align: center;
+            margin: 0;
+            margin-top: 10px;
+        }
+
+        .card>.socials{
+            text-align: center;
+            margin-top: 5px;
+        }
+        .card>.socials>.facebook-logo{
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+
+        }
+
+        .card>.socials>.twitter-logo{
+            display: inline-block;
+            position: relative;
+            width: 20px;
+            height: 20px;
+        }
+
+        .card>.socials>.instagram-logo{
+            display: inline-block;
+            position: relative;
+            width: 20px;
+            height: 20px;
+        }
+
+        .card>.socials>.youtube-logo{
+            display: inline-block;
+            position: relative;
+            width: 20px;
+            height: 20px;
+        }
+
+        .card>.contacts{
+            text-align: center;
+            margin-top: 5px;
+        }
+        .card>.contacts>.subscribe, .card>.contacts>.message{
+            background: none;
+            border: 1px solid #44f;
+            border-radius: 24px;
+            color: white;
+            background: #44f;
+            padding: 4px 4px 4px 4px;
+        }
+
+        .card>.footer>.likes{
+            position: relative;
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+        }
+
+        .card>.footer>.comments{
+            position: relative;
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+        }
+
+        .card>.footer>.shares{
+            position: relative;
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+        }
+
+        .card>.footer p{
+            display: inline-block;
+            position: relative;
+            font-size: 10px;
+            font-family: Georgia;
+        }
+        
+        .card>.footer{
+            display: inline-block;
+            margin-left: 30px;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>Esempio:</h1>
+    <img src="https://www.codingnepalweb.com/wp-content/uploads/2022/12/Top-2010-20Profile-20Card-20Template-20Designs-20in-20HTML-20-amp-20CSS.jpg" width="300px" style="display: inline-block;"/>
+
+
+    <div class="card">
+        <div class="header">
+            <div class="propic" style="background: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e8dc5db0-7fe9-4e59-bc80-4365bf3cd02f/dggz7aw-5fd227f4-6b21-4988-bc20-0fcd046d9150.jpg/v1/fill/w_894,h_894,q_70,strp/mario_profile_picture_by_joshuathomas10_dggz7aw-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTAyNCIsInBhdGgiOiJcL2ZcL2U4ZGM1ZGIwLTdmZTktNGU1OS1iYzgwLTQzNjViZjNjZDAyZlwvZGdnejdhdy01ZmQyMjdmNC02YjIxLTQ5ODgtYmMyMC0wZmNkMDQ2ZDkxNTAuanBnIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.V8Hk3Ya-2QqJWz0GLvkA1imizZ5vzfFaQy-wHEuYyP0') center; background-size: cover;"></div>
+        </div>
+
+        <div class="professions">
+            <h4>CodingLab</h3>
+            <h6>Youtuber & Blogger</h5>
+        </div>
+
+        <div class="socials">
+            <div class="facebook-logo" style="background: url('https://freepngimg.com/thumb/facebook/141116-logo-circle-facebook-hd-image-free.png') center; background-size: cover;"></div>
+            <div class="twitter-logo" style="background: url('https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-twitter-circle-1024.png') center; background-size: cover;"></div>
+            <div class="instagram-logo" style="background: url('https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-instagram-new-circle-1024.png') center; background-size: cover;"></div>
+            <div class="youtube-logo" style="background: url('https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-youtube-circle-1024.png') center; background-size: cover;"></div>
+        </div>
+        
+            
+        <div class="contacts">
+            <button class="subscribe" href="https://google.com">Subscribe</button>
+            <button class="message">Message</button>
+        </div>
+
+        <div class="footer">
+            <div class="likes" style='background: url(https://cdn1.iconfinder.com/data/icons/essential-21/128/Love-512.png) center; background-size: cover;' > </div>
+            <p>60.4k |</p>
+            <div class="comments"  style='background: url(https://cdn0.iconfinder.com/data/icons/free-daily-icon-set/512/Comments-512.png) center; background-size: cover;' > </div>
+            <p>20k |</p>
+            <div class="shares"  style='background: url(https://cdn3.iconfinder.com/data/icons/user-interface-outline-21/64/Share-512.png) center; background-size: cover;' > </div>
+            <p>12.4k</p>
+        </div>
+    </div>
+</body>
+</html>
