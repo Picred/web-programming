@@ -1,0 +1,192 @@
+html, body{
+    margin: 0;
+    padding: 0;
+}
+
+.desktop, .wallpaper{
+    position: relative;
+    width: 100vw;
+    height: 98vh;
+}
+
+
+.desktop>.wallpaper>.activity-bar{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    border: none;
+    padding-left: 7px;
+    background: #2e2e2efa;
+    color: white;
+    font-size: 10pt;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    font-weight: bold;
+}
+
+.desktop>.wallpaper>.activity-bar>.title:hover{
+    position: relative;
+    cursor: unset;
+    text-decoration: none;
+}
+
+.desktop>.wallpaper>.activity-bar>a>.date{
+    position: absolute;
+    width: 100vw;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+}
+
+.desktop>.wallpaper>.activity-bar>a>.date::after{
+    content: '  🔗';
+}
+
+
+.desktop>.wallpaper .power-off{
+    fill: rgba(0, 150, 0, 0.732);
+    display: inline;
+    position: absolute;
+    background: none;
+    border: none;
+    top: 25px;
+}
+
+.desktop>.wallpaper .power-off:hover{
+    fill: rgb(0, 150, 0);
+}
+
+.desktop>.wallpaper .power-off:active{
+    background: rgb(36, 36, 36);
+    fill: red;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    cursor: grabbing;
+}
+
+
+.desktop>.wallpaper>.terminal-windowed{
+    position: relative;
+    width: 80%;
+    height: 50%;
+    background-color: rgb(48, 9, 36);
+    border-radius: 10px;
+    top: 20%;
+    left: 10%;
+    overflow: hidden;
+    resize: both;
+    min-width: 250px;
+    min-height: 120px;
+}
+
+
+.desktop>.wallpaper>.terminal-windowed>.terminal-navbar{
+    background: #333;
+    width: 100vw;
+    height: 17px;
+    min-height: 6px;
+}
+
+
+.desktop>.wallpaper>.terminal-windowed>.terminal-navbar>svg{
+    padding-left: 2px;
+    fill: rgba(123, 123, 123, 0.587);
+    width: 15px;
+    height: 15px;
+    border: none;
+    border-radius: 50%;
+}
+
+
+.desktop>.wallpaper>.terminal-windowed>.terminal-navbar>svg:hover{
+    fill: rgba(211, 0, 0, 0.607);
+}
+
+
+.desktop>.wallpaper>.terminal-windowed>.terminal-navbar>p{
+    display: inline-block;
+    margin: 0;
+    color: rgb(223, 223, 223);
+    font-size: 15px;
+    vertical-align: top;
+}
+
+
+.desktop>.wallpaper>.terminal-windowed>.input-shell{
+    font-size: 12px;
+    font-family: 'Courier New';
+}
+
+
+.desktop>.wallpaper>.terminal-windowed>.input-shell p{
+    color: rgb(255, 255, 255);
+    padding: 0;
+    margin: 0;
+    padding: 5px;
+}
+
+
+.desktop>.wallpaper>.terminal-windowed>.input-shell>input{
+    position: absolute;
+    width: 62%;
+    left: 195px;
+    top: 91px;
+    border: none;
+    outline: none;
+    background: none;
+    color: white;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+
+.desktop>.wallpaper>.bottom-bar{
+    position: absolute;
+    bottom: 15px;
+    left: 50vw;
+    padding: 4px;
+    background: #9f9f9f31;
+    border-radius: 10px;
+    transform: scale(1.3);
+}
+
+.desktop>.wallpaper>.bottom-bar>.spotify{
+    fill: rgb(22, 191, 0);
+}
+
+.desktop>.wallpaper>.bottom-bar>.terminal{
+    fill: #fff;
+}
+
+.desktop>.wallpaper>.bottom-bar>.trash{
+    fill: #fff;
+}
+
+.desktop>.wallpaper>.bottom-bar>.vscode{
+    fill: rgb(13, 107, 249);
+}
+
+.desktop>.wallpaper>.bottom-bar>.spotify:hover{
+    fill: rgba(22, 191, 0, 0.463);
+    transform: scale(1.3);
+}
+
+.desktop>.wallpaper>.bottom-bar>.terminal:hover{
+    fill: #ffffff80;
+    transform: scale(1.3);
+}
+
+.desktop>.wallpaper>.bottom-bar>.trash:hover{
+    fill: #ffffff7b;
+    transform: scale(1.3);
+}
+
+.desktop>.wallpaper>.bottom-bar>.vscode:hover{
+    fill: rgba(13, 107, 249, 0.363);
+    transform: scale(1.3);
+}
