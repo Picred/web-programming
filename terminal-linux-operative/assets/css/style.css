@@ -27,10 +27,6 @@ html, body{
     border-radius: 12px;
 }
 
-.desktop>.wallpaper>.terminal>.input-shell{
-    color: rgb(0, 255, 0);
-    overflow: auto;
-}
 
 .desktop>.wallpaper>.terminal>.terminal-navbar{
     display: flex;
@@ -42,23 +38,23 @@ html, body{
     /* border: 1px solid red; */
 }
 
-
-
-.desktop>.wallpaper>.terminal>.terminal-navbar>.username{
-    padding-left: 8px;
+.username{
+    padding-left: 2px;
+    color:chartreuse;
 }
-
 
 .desktop>.wallpaper>.terminal>.terminal-navbar svg:hover{
     fill: rgb(169, 169, 169);
 }
 
+.desktop>.wallpaper>.terminal>.input-container{
+    display: flex;
+}
 
-.desktop>.wallpaper>.terminal>.input-shell>.row{
-    border: 1px solid red;
-    outline: none;
+.desktop>.wallpaper>.terminal>.input-container input{
+    width: 100%;
     background-color: transparent;
-    width: 99%;
     font: inherit;
     color: white;
+    border: 1px solid green;
 }
