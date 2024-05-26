@@ -55,7 +55,7 @@
                         this.time();
                         break;
                     case "curl":
-                        if (!cmd[1].startsWith("http"))
+                        if (!cmd[1].startsWith("http") || cmd[1] !== "")
                             this.error(cmd[0], "URL must start with http(s)");
                         else
                             this.curl(cmd[1]);
@@ -131,7 +131,7 @@
                 this.init();
             },
 
-            curl: function fetchContent(url) { // TODO: dont work
+            curl: function(url) {
                 const parent = this.inputContainerElement;
                 const responseElement = document.createElement("span");
             
@@ -141,17 +141,10 @@
                     .then(response => response.text())
                     .then(data => {
                         responseElement.innerHTML = data;
-                    })
-                    .catch(error => {
-                        responseElement.style.color = "#f00";
-                        responseElement.innerHTML = "Error: " + error;
-                    })
-                    .finally(() => {
-                        parent.appendChild(responseElement);
-                        this.init();
                     });
+                    parent.appendChild(responseElement);
+                    this.init();
             }
-            
         };
 
         terminal.init()
