@@ -4,10 +4,7 @@
         terminal = {
             inputContainerElement : document.querySelector(".desktop>.wallpaper>.terminal>.input-container"),
             username : "andrei",
-            init: function(username){
-                if (username !== undefined){
-                    this.username = username;
-                }
+            init: function(){
                 const spanElement = document.createElement("span");
                 spanElement.classList = ["username"];
                 spanElement.innerHTML = `${this.username}@ubuntu~$:`;
@@ -46,11 +43,22 @@
                     case "clear":
                         this.clear();
                         break;
+                    case "":
+                        break;
                     case "help":
                         this.help();
                         break;
                     case "user":
                         this.user(cmd[1]);
+                        break;
+                    case "time":
+                        this.time();
+                        break;
+                    case "curl":
+                        if (!cmd[1].startsWith("http"))
+                            this.error(cmd[0], "URL must start with http(s)");
+                        else
+                            this.curl(cmd[1]);
                         break;
                     default:
                         this.error(cmdArgs);
@@ -58,9 +66,11 @@
                 }
             },
 
-            clear: function(){
-                const parent = this.inputContainerElement;
-                parent.innerHTML = "";
+            clear: function(username){
+                this.inputContainerElement.innerHTML = "";
+                if (username !== undefined){
+                    this.username = username;
+                }
                 this.init();
             },
 
@@ -71,7 +81,12 @@
                 this.removeChild();
 
                 response.style = "color: #aaa;";
-                response.innerHTML += "Available commands: clear help";
+                response.innerHTML += "Available commands:\
+                    <br>clear: clear the console\
+                    <br>help: show this message\
+                    <br>user [username]: change the username and clear the console\
+                    <br> time: show the current time\
+                    <br> curl [url]: fetch a file from the web";
                 parent.appendChild(response);
                 this.init();
             },
@@ -95,18 +110,50 @@
             },
 
             user: function(username){
-                if (username === undefined){
-                    this.error("user");
+                if (username === undefined || username === ""){
+                    this.error("user", "Empty username not allowed.");
                 } else {
                     this.removeChild();
-                    const blank = document.createElement("p");
+                    const blank = document.createElement("span");
                     this.inputContainerElement.appendChild(blank);
-                    this.init(username); // TODO fix grid layout, se il nome è più corto la griglia non cambia
+                    this.clear(username);
                 }
-            }
-        };
-        terminal.init()
+            },
 
+            time : function(){
+                const parent = this.inputContainerElement;
+                const response = document.createElement("span");
+
+                this.removeChild();
+
+                response.innerHTML += new Date().toLocaleTimeString();
+                parent.appendChild(response);
+                this.init();
+            },
+
+            curl: function fetchContent(url) { // TODO: dont work
+                const parent = this.inputContainerElement;
+                const responseElement = document.createElement("span");
+            
+                this.removeChild();
+            
+                fetch(url)
+                    .then(response => response.text())
+                    .then(data => {
+                        responseElement.innerHTML = data;
+                    })
+                    .catch(error => {
+                        responseElement.style.color = "#f00";
+                        responseElement.innerHTML = "Error: " + error;
+                    })
+                    .finally(() => {
+                        parent.appendChild(responseElement);
+                        this.init();
+                    });
+            }
+            
+        };
+
+        terminal.init()
     }
 })()
-
