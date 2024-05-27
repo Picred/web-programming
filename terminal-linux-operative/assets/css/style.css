@@ -62,10 +62,27 @@ html, body{
 
 .desktop>.wallpaper>.terminal>.input-container input{
     display: initial;
+    outline: none;
     width: 100%;
     background-color: transparent;
     font: inherit;
     color: white;
-    border: 1px solid green;
+    border: none;
 }
 
+.desktop>.wallpaper>.terminal-icon-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    left: 20px;
+    top: 50px;
+    fill: white;
+    font-family: monospace;
+    font-weight: bold;
+    color: white;
+}
+
+.desktop>.wallpaper>.terminal-icon-container>.terminal-icon:hover{
+    fill: rgb(169, 169, 169);
+}

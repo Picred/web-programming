@@ -1,8 +1,10 @@
 (() => {
     window.onload = () => {
-
         terminal = {
             inputContainerElement: document.querySelector(".desktop>.wallpaper>.terminal>.input-container"),
+            // terminalIconContainerElement: document.querySelector(".desktop>.wallpaper>.terminal-icon-container"),
+            defaultTerminalElement: undefined,
+            closed: false,
             username: "andrei",
             init: function () {
                 const spanElement = document.createElement("span");
@@ -20,7 +22,7 @@
                     if (event.key === "Enter") {
                         this.persist(inputElement.value);
                     }
-                })
+                });    
             },
 
             persist: function (cmd) {
@@ -59,9 +61,12 @@
                         break;
                     case "curl":
                         if (!cmd[1] || !cmd[1].startsWith("http"))
-                            this.error(cmd[0], "URL must start with http(s)");
+                            this.error(cmd[0], "URL must start with http(s)<br>Try with: curl https://jsonplaceholder.typicode.com/todos {albums, users..}");
                         else
                             this.curl(cmd[1]);
+                        break;
+                    case "exit":
+                        this.exit();
                         break;
                     default:
                         this.error(cmdArgs);
@@ -73,6 +78,8 @@
                 this.inputContainerElement.innerHTML = "";
                 if (username !== undefined) {
                     this.username = username;
+                    const navbarElement = document.querySelector(".desktop>.wallpaper>.terminal>.terminal-navbar");
+                    navbarElement.querySelector(".navbar-username").innerHTML = `${username}@ubuntu: ~`;
                 }
                 this.init();
             },
@@ -87,8 +94,9 @@
                 response.innerHTML += "Available commands:\
                     <br>-clear: clear the console\
                     <br>-help: show this message\
-                    <br>-user [username]: change the username and clear the console\
+                    <br>-user [username]: change the username\
                     <br>-time: show the current time\
+                    <br>-exit: close the terminal\
                     <br>-curl [url]: fetch a file from the web";
                 parent.appendChild(response);
                 this.init();
@@ -118,7 +126,7 @@
                 } else {
                     this.removeChild();
                     const blank = document.createElement("span");
-                    this.inputContainerElement.appendChild(blank);
+                    this.inputContainerElement.appendChild(blank); // grid
                     this.clear(username);
                 }
             },
@@ -149,14 +157,26 @@
                     .catch((error) => {
                         responseElement.style = "color: #f00;"
                         responseElement.innerHTML = error;
-                        responseElement.innerHTML += "<br>Try with:curl https://jsonplaceholder.typicode.com/{todos, albums, users..}";
-
+                        responseElement.innerHTML += "<br>Try with: curl https://jsonplaceholder.typicode.com/todos {albums, users..}";
                     })
                 parent.appendChild(responseElement);
                 this.init();
+            },
+
+            exit: function(){
+                const wallpaperElement = document.querySelector(".desktop>.wallpaper");
+                this.clear();
+                this.defaultTerminalElement = document.querySelector(".desktop>.wallpaper>.terminal");
+                wallpaperElement.removeChild(wallpaperElement.querySelector(".terminal"));
+                this.closed = true;
+            },
+
+            open: function(){
+                if(this.closed){
+                    const wallpaperElement = document.querySelector(".desktop>.wallpaper");
+                    wallpaperElement.appendChild(this.defaultTerminalElement);
+                }
             }
-
-
         };
 
         terminal.init()
