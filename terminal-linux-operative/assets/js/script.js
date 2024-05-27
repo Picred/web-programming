@@ -5,6 +5,8 @@
             // terminalIconContainerElement: document.querySelector(".desktop>.wallpaper>.terminal-icon-container"),
             defaultTerminalElement: undefined,
             closed: false,
+            isMaximized: false,
+            isMinimized: false,
             username: "andrei",
             init: function () {
                 const spanElement = document.createElement("span");
@@ -22,7 +24,7 @@
                     if (event.key === "Enter") {
                         this.persist(inputElement.value);
                     }
-                });    
+                });
             },
 
             persist: function (cmd) {
@@ -30,11 +32,11 @@
 
                 this.removeChild();
 
-                parent.innerHTML += cmd;
-                if (cmd === "") { // add empty element to keep the same height (grid layout)
-                    const emptyElement = document.createElement("div");
-                    parent.appendChild(emptyElement);
-                }
+                const responseElement = document.createElement("span");
+                responseElement.innerHTML = cmd;
+                responseElement.style = "overflow:hidden";
+                parent.appendChild(responseElement);
+
                 this.init();
                 this.execute(cmd);
             },
@@ -46,12 +48,18 @@
                         console.log("spazio");
                         break;
                     case "clear":
-                        this.clear();
+                        if(!cmd[1])
+                            this.clear();
+                        else
+                            this.error("", "Use clear without arguments")
                         break;
                     case "":
                         break;
                     case "help":
-                        this.help();
+                        if(!cmd[1])
+                            this.help();
+                        else
+                            this.error("", "Use help without arguments")
                         break;
                     case "user":
                         this.user(cmd[1]);
@@ -69,7 +77,7 @@
                         this.exit();
                         break;
                     default:
-                        this.error(cmdArgs);
+                        this.error("command not found");
                         break;
                 }
             },
@@ -109,7 +117,7 @@
                 this.removeChild();
 
                 response.style = "color: #f00;";
-                response.innerHTML += "Error: command not found: " + cmd + (arg ? " " + arg : "");
+                response.innerHTML += "error: " + cmd + (arg ? " " + arg : "");
                 parent.appendChild(response);
                 this.init();
             },
@@ -167,6 +175,7 @@
                 const wallpaperElement = document.querySelector(".desktop>.wallpaper");
                 this.clear();
                 this.defaultTerminalElement = document.querySelector(".desktop>.wallpaper>.terminal");
+                console.log(this.defaultTerminalElement)
                 wallpaperElement.removeChild(wallpaperElement.querySelector(".terminal"));
                 this.closed = true;
             },
@@ -176,9 +185,32 @@
                     const wallpaperElement = document.querySelector(".desktop>.wallpaper");
                     wallpaperElement.appendChild(this.defaultTerminalElement);
                 }
+
+                if(this.isMinimized){
+                    const terminalElement = document.querySelector(".desktop>.wallpaper>.terminal");
+                    terminalElement.style.removeProperty("display");
+                    this.isMinimized = false;
+                }
+            },
+
+            changeSize: function(){
+                const terminalElement = document.querySelector(".desktop>.wallpaper>.terminal"); 
+                terminalElement.style = "";
+                terminalElement.classList = [`terminal ${(!this.isMaximized ? "maximize" : "normalize")}`];
+                this.isMaximized= !this.isMaximized;
+            },
+
+            minimize: function(){
+                const terminalElement = document.querySelector(".desktop>.wallpaper>.terminal"); 
+                terminalElement.style = "display: none;"
+                this.isMinimized = true;
             }
         };
 
         terminal.init()
     }
 })()
+
+
+// zoom page si rompe
+// eventlistener in js piuttosto che onclick 

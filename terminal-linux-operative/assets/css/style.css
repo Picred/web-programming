@@ -4,25 +4,34 @@ html, body{
 }
 
 .desktop>.wallpaper{
-    position: relative;
+    position: absolute;
     width: 100vw;
     height: 100vh;
 }
 
-
-.desktop>.wallpaper>.terminal{
+.maximize{
     position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.normalize{
+    position: relative;
     top: 10%;
     left: 25%;
     width: 50%;
     height: 50%;
-    background-color: black;
+    resize: both;
+}
+
+.desktop>.wallpaper>.terminal{
     color: white;
     font-family: monospace;
-    /* overflow: hidden; */
-    resize: both;
-    min-width: 250px;
-    min-height: 100px;
+    min-width: 200px;
+    min-height: 50px;
     background-color: rgb(48, 9, 36);
     border-radius: 12px;
 }
@@ -38,9 +47,15 @@ html, body{
     background-color: #333;
 }
 
+
 .username{
     padding-left: 2px;
     color:chartreuse;
+}
+
+/* STO cercando di non far ridimensionare i bottoni quando ridimensiono la finestra 18:39 */
+.desktop>.wallpaper>.terminal>.terminal-navbar svg{
+    object-position: 0%;
 }
 
 .desktop>.wallpaper>.terminal>.terminal-navbar svg:hover{
@@ -50,7 +65,7 @@ html, body{
 .desktop>.wallpaper>.terminal>.input-container{
     display: grid;
     grid-template-columns: auto 1fr;
-    padding-left: 5px;
+    padding-left: 2px;
 }
 
 .desktop>.wallpaper>.terminal{
