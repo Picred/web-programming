@@ -19,7 +19,7 @@ html, body{
     background-color: black;
     color: white;
     font-family: monospace;
-    overflow: hidden;
+    /* overflow: hidden; */
     resize: both;
     min-width: 250px;
     min-height: 100px;
@@ -55,6 +55,7 @@ html, body{
 
 .desktop>.wallpaper>.terminal{
     overflow-y: scroll;
+    overflow-x: hidden;
     scrollbar-width: thin;
     scrollbar-color: #333 rgb(48, 9, 36);
 }

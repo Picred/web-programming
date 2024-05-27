@@ -1,10 +1,10 @@
-(() => {    
+(() => {
     window.onload = () => {
-        
+
         terminal = {
-            inputContainerElement : document.querySelector(".desktop>.wallpaper>.terminal>.input-container"),
-            username : "andrei",
-            init: function(){
+            inputContainerElement: document.querySelector(".desktop>.wallpaper>.terminal>.input-container"),
+            username: "andrei",
+            init: function () {
                 const spanElement = document.createElement("span");
                 spanElement.classList = ["username"];
                 spanElement.innerHTML = `${this.username}@ubuntu~$:`;
@@ -17,19 +17,19 @@
                 inputElement.focus();
 
                 inputElement.addEventListener("keydown", (event) => {
-                    if (event.key === "Enter"){
+                    if (event.key === "Enter") {
                         this.persist(inputElement.value);
                     }
                 })
             },
 
-            persist: function(cmd){
+            persist: function (cmd) {
                 const parent = this.inputContainerElement;
 
                 this.removeChild();
 
                 parent.innerHTML += cmd;
-                if (cmd === ""){ // add empty element to keep the same height (grid layout)
+                if (cmd === "") { // add empty element to keep the same height (grid layout)
                     const emptyElement = document.createElement("div");
                     parent.appendChild(emptyElement);
                 }
@@ -37,9 +37,12 @@
                 this.execute(cmd);
             },
 
-            execute: function(cmdArgs){
+            execute: function (cmdArgs) {
                 const cmd = cmdArgs.split(" ");
-                switch(cmd[0]){
+                switch (cmd[0]) {
+                    case " ":
+                        console.log("spazio");
+                        break;
                     case "clear":
                         this.clear();
                         break;
@@ -55,7 +58,7 @@
                         this.time();
                         break;
                     case "curl":
-                        if (!cmd[1].startsWith("http") || cmd[1] !== "")
+                        if (!cmd[1] || !cmd[1].startsWith("http"))
                             this.error(cmd[0], "URL must start with http(s)");
                         else
                             this.curl(cmd[1]);
@@ -66,15 +69,15 @@
                 }
             },
 
-            clear: function(username){
+            clear: function (username) {
                 this.inputContainerElement.innerHTML = "";
-                if (username !== undefined){
+                if (username !== undefined) {
                     this.username = username;
                 }
                 this.init();
             },
 
-            help: function(){
+            help: function () {
                 const parent = this.inputContainerElement;
                 const response = document.createElement("span");
 
@@ -82,35 +85,35 @@
 
                 response.style = "color: #aaa;";
                 response.innerHTML += "Available commands:\
-                    <br>clear: clear the console\
-                    <br>help: show this message\
-                    <br>user [username]: change the username and clear the console\
-                    <br> time: show the current time\
-                    <br> curl [url]: fetch a file from the web";
+                    <br>-clear: clear the console\
+                    <br>-help: show this message\
+                    <br>-user [username]: change the username and clear the console\
+                    <br>-time: show the current time\
+                    <br>-curl [url]: fetch a file from the web";
                 parent.appendChild(response);
                 this.init();
             },
 
-            error: function(cmd, arg){
+            error: function (cmd, arg) {
                 const parent = this.inputContainerElement;
                 const response = document.createElement("span");
 
                 this.removeChild();
 
                 response.style = "color: #f00;";
-                response.innerHTML += "Error: command not found: " + cmd + (arg  ? " " + arg : "");
+                response.innerHTML += "Error: command not found: " + cmd + (arg ? " " + arg : "");
                 parent.appendChild(response);
                 this.init();
             },
 
-            removeChild: function(){
+            removeChild: function () {
                 const parent = this.inputContainerElement;
                 const oldchild = this.inputContainerElement.querySelector("input");
                 parent.removeChild(oldchild);
             },
 
-            user: function(username){
-                if (username === undefined || username === ""){
+            user: function (username) {
+                if (username === undefined || username === "") {
                     this.error("user", "Empty username not allowed.");
                 } else {
                     this.removeChild();
@@ -120,31 +123,40 @@
                 }
             },
 
-            time : function(){
+            time: function () {
                 const parent = this.inputContainerElement;
                 const response = document.createElement("span");
 
                 this.removeChild();
 
-                response.innerHTML += new Date().toLocaleTimeString();
+                response.innerHTML += new Date().toLocaleString();
                 parent.appendChild(response);
                 this.init();
             },
 
-            curl: function(url) {
+            curl: function (url) {
                 const parent = this.inputContainerElement;
                 const responseElement = document.createElement("span");
-            
+
                 this.removeChild();
-            
+
                 fetch(url)
                     .then(response => response.text())
                     .then(data => {
+                        responseElement.style = "color: #aaa;"
                         responseElement.innerHTML = data;
-                    });
-                    parent.appendChild(responseElement);
-                    this.init();
+                    })
+                    .catch((error) => {
+                        responseElement.style = "color: #f00;"
+                        responseElement.innerHTML = error;
+                        responseElement.innerHTML += "<br>Try with:curl https://jsonplaceholder.typicode.com/{todos, albums, users..}";
+
+                    })
+                parent.appendChild(responseElement);
+                this.init();
             }
+
+
         };
 
         terminal.init()
