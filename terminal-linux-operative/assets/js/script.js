@@ -131,11 +131,13 @@
             user: function (username) {
                 if (username === undefined || username === "") {
                     this.error("user", "Empty username not allowed.");
-                } else {
+                } else if (username.length < 50){
                     this.removeChild();
                     const blank = document.createElement("span");
                     this.inputContainerElement.appendChild(blank); // grid
                     this.clear(username);
+                } else{
+                    this.error("","Username too long");
                 }
             },
 
@@ -208,9 +210,19 @@
         };
 
         terminal.init()
+
+        const minimizeButtonElement = document.querySelector(".desktop>.wallpaper>.terminal>.terminal-navbar>.minimize-button");
+        const maximizeButtonElement = document.querySelector(".desktop>.wallpaper>.terminal>.terminal-navbar>.maximize-button");
+        const closeButtonElement = document.querySelector(".desktop>.wallpaper>.terminal>.terminal-navbar>.close-button");
+
+        minimizeButtonElement.addEventListener("click", () => {terminal.minimize();});
+        closeButtonElement.addEventListener("click", () => {terminal.exit();});
+        maximizeButtonElement.addEventListener("click", () => {terminal.changeSize();});
+
     }
 })()
 
 
 // zoom page si rompe
 // eventlistener in js piuttosto che onclick 
+// user nome_troppo_lungo >> si rompe UI
