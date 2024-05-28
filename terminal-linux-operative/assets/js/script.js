@@ -2,12 +2,12 @@
     window.onload = () => {
         terminal = {
             inputContainerElement: document.querySelector(".desktop>.wallpaper>.terminal>.input-container"),
-            // terminalIconContainerElement: document.querySelector(".desktop>.wallpaper>.terminal-icon-container"),
             defaultTerminalElement: undefined,
             closed: false,
             isMaximized: false,
             isMinimized: false,
             username: "andrei",
+
             init: function () {
                 const spanElement = document.createElement("span");
                 spanElement.classList = ["username"];
@@ -44,37 +44,46 @@
             execute: function (cmdArgs) {
                 const cmd = cmdArgs.split(" ");
                 switch (cmd[0]) {
-                    case " ":
-                        console.log("spazio");
-                        break;
                     case "clear":
-                        if(!cmd[1])
+                        if(cmd.length < 2)
                             this.clear();
                         else
-                            this.error("", "Use clear without arguments")
+                            this.error("", "Use clear without arguments");
                         break;
                     case "":
                         break;
                     case "help":
-                        if(!cmd[1])
+                        if(cmd.length < 2)
                             this.help();
                         else
-                            this.error("", "Use help without arguments")
+                            this.error("", "Use help without arguments");
                         break;
                     case "user":
-                        this.user(cmd[1]);
+                        if(cmd.length === 2)
+                            this.user(cmd[1]);
+                        else
+                            this.error("", "Use user with 1 argument");
                         break;
                     case "time":
-                        this.time();
+                        if(cmd.length < 2)
+                            this.time();
+                        else
+                            this.error("", "Use time without arguments")
                         break;
                     case "curl":
-                        if (!cmd[1] || !cmd[1].startsWith("http"))
-                            this.error(cmd[0], "URL must start with http(s)<br>Try with: curl https://jsonplaceholder.typicode.com/todos {albums, users..}");
+                        if (!cmd[1] || !cmd[1].startsWith("http")|| cmd.length > 2)
+                            this.error("", "URL must start with http(s) or there are too many arguments (1 allowed)<br>Try with: curl https://jsonplaceholder.typicode.com/todos [albums, users..]");
                         else
                             this.curl(cmd[1]);
                         break;
                     case "exit":
-                        this.exit();
+                        if(cmd.length < 2)
+                            this.exit();
+                        else
+                            this.error("", "Use exit without arguments")
+                        break;
+                    case "os":
+                        this.os(cmd);
                         break;
                     default:
                         this.error("command not found");
@@ -105,6 +114,7 @@
                     <br>-user [username]: change the username\
                     <br>-time: show the current time\
                     <br>-exit: close the terminal\
+                    <br>-os {cmd} [--help] [args] : execute Linux command locally\
                     <br>-curl [url]: fetch a file from the web";
                 parent.appendChild(response);
                 this.init();
@@ -130,7 +140,7 @@
 
             user: function (username) {
                 if (username === undefined || username === "") {
-                    this.error("user", "Empty username not allowed.");
+                    this.error("", "Empty username not allowed.");
                 } else if (username.length < 50){
                     this.removeChild();
                     const blank = document.createElement("span");
@@ -177,7 +187,6 @@
                 const wallpaperElement = document.querySelector(".desktop>.wallpaper");
                 this.clear();
                 this.defaultTerminalElement = document.querySelector(".desktop>.wallpaper>.terminal");
-                console.log(this.defaultTerminalElement)
                 wallpaperElement.removeChild(wallpaperElement.querySelector(".terminal"));
                 this.closed = true;
             },
@@ -206,6 +215,45 @@
                 const terminalElement = document.querySelector(".desktop>.wallpaper>.terminal"); 
                 terminalElement.style = "display: none;"
                 this.isMinimized = true;
+            },
+
+            os: function(cmd){
+                const parent = this.inputContainerElement;
+                const responseElement = document.createElement("span");
+
+                this.removeChild();
+                
+                if (cmd[1] === "--help"){
+                    responseElement.innerHTML = "Aiuto";
+                }
+                if (!cmd[1]){
+                    responseElement.style.color = "#aaa";
+                    responseElement.innerHTML = "Available commands:\
+                    <br>-ping [host]: send ICMP echo requests to check if a host is reachable\
+                    <br>-ls [directory]: list files and directories in the specified directory\
+                    <br>-mkdir [directory]: create a new directory\
+                    <br>-rmdir [directory]: remove an empty directory"
+                }
+                else{
+                    let fullcmd="";
+                    for(let  i = 1; i<cmd.length; i++){
+                        fullcmd+=cmd[i];
+                        if(i < cmd.length-1)
+                            fullcmd+="+";
+                    }
+                    fetch("/server.php?cmd=" + fullcmd)
+                    .then(response => response.text())
+                    .then(data => {
+                        responseElement.style = "color: #aaa;"
+                        responseElement.innerHTML = data;
+                    })
+                    .catch((error) => {
+                        responseElement.style = "color: #f00;"
+                        responseElement.innerHTML = error;
+                    })
+                }
+                parent.appendChild(responseElement);
+                this.init();
             }
         };
 
@@ -214,15 +262,11 @@
         const minimizeButtonElement = document.querySelector(".desktop>.wallpaper>.terminal>.terminal-navbar>.minimize-button");
         const maximizeButtonElement = document.querySelector(".desktop>.wallpaper>.terminal>.terminal-navbar>.maximize-button");
         const closeButtonElement = document.querySelector(".desktop>.wallpaper>.terminal>.terminal-navbar>.close-button");
+        const terminalIconElement = document.querySelector(".desktop>.wallpaper .terminal-icon");
 
         minimizeButtonElement.addEventListener("click", () => {terminal.minimize();});
         closeButtonElement.addEventListener("click", () => {terminal.exit();});
         maximizeButtonElement.addEventListener("click", () => {terminal.changeSize();});
-
+        terminalIconElement.addEventListener("click", () => {terminal.open();});
     }
 })()
-
-
-// zoom page si rompe
-// eventlistener in js piuttosto che onclick 
-// user nome_troppo_lungo >> si rompe UI

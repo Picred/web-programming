@@ -33,12 +33,14 @@ html, body{
     min-width: 200px;
     min-height: 50px;
     background-color: rgb(48, 9, 36);
-    border-radius: 12px;
+    border-radius: 3px;
 }
 
 .desktop>.wallpaper>.terminal>.terminal-navbar{
     position: sticky;
     top: 0;
+    left: 0;
+    right: 0;
     display: flex;
     align-items: center;
     width: 100%;
@@ -51,15 +53,7 @@ html, body{
 .username{
     padding-left: 2px;
     color:chartreuse;
-}
-
-/* STO cercando di non far ridimensionare i bottoni quando ridimensiono la finestra 18:39 */
-.desktop>.wallpaper>.terminal>.terminal-navbar svg{
-    object-position: 0%;
-}
-
-.desktop>.wallpaper>.terminal>.terminal-navbar svg:hover{
-    fill: rgb(169, 169, 169);
+    
 }
 
 .desktop>.wallpaper>.terminal>.input-container{
@@ -67,6 +61,15 @@ html, body{
     grid-template-columns: auto 1fr;
     padding-left: 2px;
 }
+
+.desktop>.wallpaper>.terminal>.terminal-navbar svg{
+    flex-shrink: 0;
+}
+
+.desktop>.wallpaper>.terminal>.terminal-navbar svg:hover{
+    fill: rgb(169, 169, 169);
+}
+
 
 .desktop>.wallpaper>.terminal{
     overflow-y: scroll;
@@ -76,7 +79,6 @@ html, body{
 }
 
 .desktop>.wallpaper>.terminal>.input-container input{
-    display: initial;
     outline: none;
     width: 100%;
     background-color: transparent;
