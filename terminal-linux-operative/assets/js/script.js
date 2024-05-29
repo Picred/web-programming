@@ -1,5 +1,16 @@
 (() => {
     window.onload = () => {
+        clock = {
+            dateElement: document.querySelector(".desktop>.wallpaper>.activity-bar>.date"),
+            init: function(){
+                this.dateElement.innerHTML = new Date().toLocaleString();
+                setInterval(() =>{
+                    this.init()
+                }, 1000);
+            }
+        }
+        
+
         terminal = {
             inputContainerElement: document.querySelector(".desktop>.wallpaper>.terminal>.input-container"),
             defaultTerminalElement: undefined,
@@ -114,7 +125,7 @@
                     <br>-user [username]: change the username\
                     <br>-time: show the current time\
                     <br>-exit: close the terminal\
-                    <br>-os [cmd] [args] : execute Linux command locally\
+                    <br>-os [--help] [cmd] [args] : execute Linux command locally\
                     <br>-curl [url]: fetch a file from the web";
                 parent.appendChild(response);
                 this.init();
@@ -231,7 +242,8 @@
                             responseElement.innerHTML = "os server is offline";
                         }
                     })
-                    
+                }
+                if (cmd[1] === "--help"){
                     responseElement.style.color = "#aaa";
                     responseElement.innerHTML = "[os]:Available options:\
                     <br>- ping -c 1 [host]: send ICMP ECHO_REQUEST to network hosts\
@@ -272,7 +284,7 @@
                 this.init();
             }
         };
-
+        clock.init();
         terminal.init()
 
         const minimizeButtonElement = document.querySelector(".desktop>.wallpaper>.terminal>.terminal-navbar>.minimize-button");
@@ -284,18 +296,6 @@
         closeButtonElement.addEventListener("click", () => {terminal.exit();});
         maximizeButtonElement.addEventListener("click", () => {terminal.changeSize();});
         terminalIconElement.addEventListener("click", () => {terminal.open();});
-
-        clock = {
-            dateElement: document.querySelector(".desktop>.wallpaper>.activity-bar>.date"),
-            init: function(){
-                this.dateElement.innerHTML = new Date().toLocaleString();
-                setInterval(() =>{
-                    this.init()
-                }, 1000);
-            }
-        }
-        
-        clock.init();
     }
 })()
 
