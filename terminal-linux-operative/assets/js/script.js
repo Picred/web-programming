@@ -108,13 +108,13 @@
                 this.removeChild();
 
                 response.style = "color: #aaa;";
-                response.innerHTML += "Available commands:\
+                response.innerHTML += "[help]:Available commands:\
                     <br>-clear: clear the console\
                     <br>-help: show this message\
                     <br>-user [username]: change the username\
                     <br>-time: show the current time\
                     <br>-exit: close the terminal\
-                    <br>-os {cmd} [--help] [args] : execute Linux command locally\
+                    <br>-os [cmd] [args] : execute Linux command locally\
                     <br>-curl [url]: fetch a file from the web";
                 parent.appendChild(response);
                 this.init();
@@ -141,13 +141,13 @@
             user: function (username) {
                 if (username === undefined || username === "") {
                     this.error("", "Empty username not allowed.");
-                } else if (username.length < 50){
+                } else if (username.length <= 10){
                     this.removeChild();
                     const blank = document.createElement("span");
                     this.inputContainerElement.appendChild(blank); // grid
                     this.clear(username);
                 } else{
-                    this.error("","Username too long");
+                    this.error("","Username too long (max 10 characters)");
                 }
             },
 
@@ -222,17 +222,27 @@
                 const responseElement = document.createElement("span");
 
                 this.removeChild();
-                
-                if (cmd[1] === "--help"){
-                    responseElement.innerHTML = "Aiuto";
-                }
                 if (!cmd[1]){
+                    fetch("/server.php?cmd=ls")
+                    .then(response => response.text())
+                    .then(data => {
+                        if(data.startsWith("<?php")){
+                            responseElement.style = "color: #f00;"
+                            responseElement.innerHTML = "os server is offline";
+                        }
+                    })
+                    
                     responseElement.style.color = "#aaa";
-                    responseElement.innerHTML = "Available commands:\
-                    <br>-ping [host]: send ICMP echo requests to check if a host is reachable\
-                    <br>-ls [directory]: list files and directories in the specified directory\
-                    <br>-mkdir [directory]: create a new directory\
-                    <br>-rmdir [directory]: remove an empty directory"
+                    responseElement.innerHTML = "[os]:Available options:\
+                    <br>- ping -c 1 [host]: send ICMP ECHO_REQUEST to network hosts\
+                    <br>- ls [directory]: list directory contents\
+                    <br>- rmdir [directory]: remove an empty directory\
+                    <br>- cp [src] [dst]: copy src to dst\
+                    <br>- rm [directory]: remove  a file\
+                    <br>- mkdir: make directories\
+                    <br>- mv [src] [dst]: move src to dst\
+                    <br> and so one...\
+                    <br><br> Not supported operations: cd, ping etc..(loop operations)"
                 }
                 else{
                     let fullcmd="";
@@ -244,8 +254,14 @@
                     fetch("/server.php?cmd=" + fullcmd)
                     .then(response => response.text())
                     .then(data => {
-                        responseElement.style = "color: #aaa;"
-                        responseElement.innerHTML = data;
+                        if(data.startsWith("<?php")){
+                            responseElement.style = "color: #f00;"
+                            responseElement.innerHTML = "os server is offline";
+                        }
+                        else{
+                            responseElement.style = "color: #aaa;"
+                            responseElement.innerHTML = data;
+                        }
                     })
                     .catch((error) => {
                         responseElement.style = "color: #f00;"
@@ -268,5 +284,18 @@
         closeButtonElement.addEventListener("click", () => {terminal.exit();});
         maximizeButtonElement.addEventListener("click", () => {terminal.changeSize();});
         terminalIconElement.addEventListener("click", () => {terminal.open();});
+
+        clock = {
+            dateElement: document.querySelector(".desktop>.wallpaper>.activity-bar>.date"),
+            init: function(){
+                this.dateElement.innerHTML = new Date().toLocaleString();
+                setInterval(() =>{
+                    this.init()
+                }, 1000);
+            }
+        }
+        
+        clock.init();
     }
 })()
+
