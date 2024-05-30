@@ -1,12 +1,15 @@
 (() => {
     window.onload = () => {
-        clock = {
+        date = {
             dateElement: document.querySelector(".desktop>.wallpaper>.activity-bar>.date"),
             init: function(){
-                this.dateElement.innerHTML = new Date().toLocaleString();
-                setInterval(() =>{
-                    this.init()
+                this.updateDate();
+                setInterval(() => {
+                    this.updateDate();
                 }, 1000);
+            },
+            updateDate: function() {
+                this.dateElement.innerHTML = new Date().toLocaleString();
             }
         }
         
@@ -250,7 +253,7 @@
                     <br>- ls [directory]: list directory contents\
                     <br>- rmdir [directory]: remove an empty directory\
                     <br>- cp [src] [dst]: copy src to dst\
-                    <br>- rm [directory]: remove  a file\
+                    <br>- rm [directory]: remove a file\
                     <br>- mkdir: make directories\
                     <br>- mv [src] [dst]: move src to dst\
                     <br> and so one...\
@@ -284,7 +287,7 @@
                 this.init();
             }
         };
-        clock.init();
+        date.init();
         terminal.init()
 
         const minimizeButtonElement = document.querySelector(".desktop>.wallpaper>.terminal>.terminal-navbar>.minimize-button");
