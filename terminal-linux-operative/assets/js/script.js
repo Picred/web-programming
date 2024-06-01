@@ -242,7 +242,7 @@
                     .then(data => {
                         if(data.startsWith("<?php")){
                             responseElement.style = "color: #f00;"
-                            responseElement.innerHTML = "os server is offline";
+                            responseElement.innerHTML = "os server is offline. Start a PHP server in the root directory";
                         }
                     })
                 }
@@ -271,7 +271,7 @@
                     .then(data => {
                         if(data.startsWith("<?php")){
                             responseElement.style = "color: #f00;"
-                            responseElement.innerHTML = "os server is offline";
+                            responseElement.innerHTML = "os server is offline. Start a PHP server in the root directory";
                         }
                         else{
                             responseElement.style = "color: #aaa;"
@@ -294,11 +294,12 @@
         const maximizeButtonElement = document.querySelector(".desktop>.wallpaper>.terminal>.terminal-navbar>.maximize-button");
         const closeButtonElement = document.querySelector(".desktop>.wallpaper>.terminal>.terminal-navbar>.close-button");
         const terminalIconElement = document.querySelector(".desktop>.wallpaper .terminal-icon");
+        const terminalElement = document.querySelector(".desktop>.wallpaper>.terminal");
 
         minimizeButtonElement.addEventListener("click", () => {terminal.minimize();});
         closeButtonElement.addEventListener("click", () => {terminal.exit();});
         maximizeButtonElement.addEventListener("click", () => {terminal.changeSize();});
         terminalIconElement.addEventListener("click", () => {terminal.open();});
+        terminalElement.addEventListener("click", () => {document.querySelector(".desktop>.wallpaper>.terminal>.input-container input").focus();});
     }
 })()
-
