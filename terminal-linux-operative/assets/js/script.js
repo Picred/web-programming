@@ -96,9 +96,6 @@
                         else
                             this.error("", "Use exit without arguments")
                         break;
-                    case "os":
-                        this.os(cmd);
-                        break;
                     default:
                         this.error("command not found");
                         break;
@@ -128,7 +125,6 @@
                     <br>-user [username]: change the username\
                     <br>-time: show the current time\
                     <br>-exit: close the terminal\
-                    <br>-os [--help] [cmd] [args] : execute Linux command locally\
                     <br>-curl [url]: fetch a file from the web";
                 parent.appendChild(response);
                 this.init();
@@ -229,62 +225,6 @@
                 const terminalElement = document.querySelector(".desktop>.wallpaper>.terminal"); 
                 terminalElement.style = "display: none;"
                 this.isMinimized = true;
-            },
-
-            os: function(cmd){
-                const parent = this.inputContainerElement;
-                const responseElement = document.createElement("span");
-
-                this.removeChild();
-                if (!cmd[1]){
-                    fetch("/server.php?cmd=ls")
-                    .then(response => response.text())
-                    .then(data => {
-                        if(data.startsWith("<?php")){
-                            responseElement.style = "color: #f00;"
-                            responseElement.innerHTML = "os server is offline. Start a PHP server in the root directory";
-                        }
-                    })
-                }
-                if (cmd[1] === "--help"){
-                    responseElement.style.color = "#aaa";
-                    responseElement.innerHTML = "[os]:Available options:\
-                    <br>- ping -c 1 [host]: send ICMP ECHO_REQUEST to network hosts\
-                    <br>- ls [directory]: list directory contents\
-                    <br>- rmdir [directory]: remove an empty directory\
-                    <br>- cp [src] [dst]: copy src to dst\
-                    <br>- rm [directory]: remove a file\
-                    <br>- mkdir: make directories\
-                    <br>- mv [src] [dst]: move src to dst\
-                    <br> and so one...\
-                    <br><br> Not supported operations: cd, ping etc..(loop operations)"
-                }
-                else{
-                    let fullcmd="";
-                    for(let  i = 1; i<cmd.length; i++){
-                        fullcmd+=cmd[i];
-                        if(i < cmd.length-1)
-                            fullcmd+="+";
-                    }
-                    fetch("/server.php?cmd=" + fullcmd)
-                    .then(response => response.text())
-                    .then(data => {
-                        if(data.startsWith("<?php")){
-                            responseElement.style = "color: #f00;"
-                            responseElement.innerHTML = "os server is offline. Start a PHP server in the root directory";
-                        }
-                        else{
-                            responseElement.style = "color: #aaa;"
-                            responseElement.innerHTML = data;
-                        }
-                    })
-                    .catch((error) => {
-                        responseElement.style = "color: #f00;"
-                        responseElement.innerHTML = error;
-                    })
-                }
-                parent.appendChild(responseElement);
-                this.init();
             }
         };
         date.init();
