@@ -1,6 +1,6 @@
 (() => {
     window.onload = () => {
-        date = {
+        const date = {
             dateElement: document.querySelector(".desktop>.wallpaper>.activity-bar>.date"),
             init: function(){
                 this.updateDate();
@@ -14,13 +14,14 @@
         }
         
 
-        terminal = {
+        const terminal = {
             inputContainerElement: document.querySelector(".desktop>.wallpaper>.terminal>.input-container"),
             defaultTerminalElement: undefined,
             closed: false,
             isMaximized: false,
             isMinimized: false,
             username: "andrei",
+            emptyElement: document.createElement("span"),
 
             init: function () {
                 const spanElement = document.createElement("span");
@@ -57,14 +58,13 @@
 
             execute: function (cmdArgs) {
                 const cmd = cmdArgs.split(" ");
+                console.log(cmd)
                 switch (cmd[0]) {
                     case "clear":
                         if(cmd.length < 2)
                             this.clear();
                         else
                             this.error("", "Use clear without arguments");
-                        break;
-                    case "":
                         break;
                     case "help":
                         if(cmd.length < 2)
@@ -126,6 +126,7 @@
                     <br>-time: show the current time\
                     <br>-exit: close the terminal\
                     <br>-curl [url]: fetch a file from the web";
+                
                 parent.appendChild(response);
                 this.init();
             },
@@ -157,7 +158,7 @@
                     this.inputContainerElement.appendChild(blank); // grid
                     this.clear(username);
                 } else{
-                    this.error("","Username too long (max 10 characters)");
+                    this.error("","Too long (max 10)");
                 }
             },
 
@@ -236,10 +237,10 @@
         const terminalIconElement = document.querySelector(".desktop>.wallpaper .terminal-icon");
         const terminalElement = document.querySelector(".desktop>.wallpaper>.terminal");
 
-        minimizeButtonElement.addEventListener("click", () => {terminal.minimize();});
-        closeButtonElement.addEventListener("click", () => {terminal.exit();});
-        maximizeButtonElement.addEventListener("click", () => {terminal.changeSize();});
-        terminalIconElement.addEventListener("click", () => {terminal.open();});
-        terminalElement.addEventListener("click", () => {document.querySelector(".desktop>.wallpaper>.terminal>.input-container input").focus();});
+        minimizeButtonElement.addEventListener("click", () => terminal.minimize());
+        closeButtonElement.addEventListener("click", () => terminal.exit());
+        maximizeButtonElement.addEventListener("click", () => terminal.changeSize());
+        terminalIconElement.addEventListener("click", () => terminal.open());
+        terminalElement.addEventListener("click", () => document.querySelector(".desktop>.wallpaper>.terminal>.input-container input").focus());
     }
 })()

@@ -75,15 +75,18 @@ html, body{
 
 
 .username{
-    padding-left: 2px;
     color:chartreuse;
-    
 }
 
 .desktop>.wallpaper>.terminal>.input-container{
     display: grid;
     grid-template-columns: auto 1fr;
     padding-left: 2px;
+}
+
+    
+.desktop>.wallpaper>.terminal>.terminal-navbar>.navbar-username{
+    padding-left: 4px;
 }
 
 .desktop>.wallpaper>.terminal>.terminal-navbar svg{
@@ -109,6 +112,7 @@ html, body{
     font: inherit;
     color: white;
     border: none;
+    padding : 0;
 }
 
 .desktop>.wallpaper>.terminal-icon-container{
