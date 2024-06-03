@@ -9,6 +9,7 @@ html, body{
 }
 
 .desktop>.wallpaper>.activity-bar{
+    position: absolute;
     background: #333;
     left: 0;
     right: 0;
@@ -17,7 +18,7 @@ html, body{
     justify-content: center;
     font-family: monospace;
     font-weight: bold;
-    color: white;
+    color: #fff;
 }
 
 .desktop>.wallpaper>.activity-bar>.title{
@@ -49,15 +50,24 @@ html, body{
     width: 50%;
     height: 50%;
     resize: both;
+    min-width: 200px;
+    min-height: 100px;
+    max-height: calc(100vh - 10%);
+    max-width: calc(100vw - 25%);
 }
 
 .desktop>.wallpaper>.terminal{
-    color: white;
+    color: #fff;
     font-family: monospace;
-    min-width: 200px;
-    min-height: 100px;
-    background-color: rgb(48, 9, 36);
+
+
+
+    background-color: rgb(48, 9, 36, 0.95);
     border-radius: 3px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #333 rgb(48, 9, 36)
 }
 
 .desktop>.wallpaper>.terminal>.terminal-navbar{
@@ -97,23 +107,16 @@ html, body{
     fill: rgb(169, 169, 169);
 }
 
-
-.desktop>.wallpaper>.terminal{
-    overflow-y: scroll;
-    overflow-x: hidden;
-    scrollbar-width: thin;
-    scrollbar-color: #333 rgb(48, 9, 36);
-}
-
 .desktop>.wallpaper>.terminal>.input-container input{
     outline: none;
     width: 100%;
     background-color: transparent;
     font: inherit;
-    color: white;
+    color: #fff;
     border: none;
     padding : 0;
 }
+
 
 .desktop>.wallpaper>.terminal-icon-container{
     display: flex;
@@ -122,12 +125,13 @@ html, body{
     position: absolute;
     left: 20px;
     top: 50px;
-    fill: white;
+    fill: #fff;
     font-family: monospace;
     font-weight: bold;
-    color: white;
+    color: #fff;
 }
 
 .desktop>.wallpaper>.terminal-icon-container>.terminal-icon:hover{
-    fill: rgb(169, 169, 169);
+    fill: rgb(150, 150, 150);
+    transform: scale(1.1);
 }

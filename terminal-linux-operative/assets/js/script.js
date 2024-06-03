@@ -58,7 +58,6 @@
 
             execute: function (cmdArgs) {
                 const cmd = cmdArgs.split(" ");
-                console.log(cmd)
                 switch (cmd[0]) {
                     case "clear":
                         if(cmd.length < 2)
@@ -96,6 +95,12 @@
                         else
                             this.error("", "Use exit without arguments")
                         break;
+                    case "whoami":
+                        if(cmd.length < 2)
+                            this.whoami();
+                        else
+                            this.error("", "Use whoami without arguments")
+                        break;
                     default:
                         this.error("command not found");
                         break;
@@ -119,9 +124,10 @@
                 this.removeChild();
 
                 response.style = "color: #aaa;";
-                response.innerHTML += "[help]:Available commands:\
+                response.innerHTML += "Available commands:\
                     <br>-clear: clear the console\
                     <br>-help: show this message\
+                    <br>-whoami: show your username\
                     <br>-user [username]: change the username\
                     <br>-time: show the current time\
                     <br>-exit: close the terminal\
@@ -174,6 +180,17 @@
                 this.init();
             },
 
+            whoami: function () {
+                const parent = this.inputContainerElement;
+                const response = document.createElement("span");
+
+                this.removeChild();
+                response.style = "color: #aaa;"
+                response.innerHTML += this.username;
+                parent.appendChild(response);
+                this.init();
+            },
+
             curl: function (url) {
                 const parent = this.inputContainerElement;
                 const responseElement = document.createElement("span");
@@ -185,6 +202,7 @@
                     .then(data => {
                         responseElement.style = "color: #aaa;"
                         responseElement.innerHTML = data;
+                        // console.log(data)
                     })
                     .catch((error) => {
                         responseElement.style = "color: #f00;"
@@ -197,7 +215,7 @@
 
             exit: function(){
                 const wallpaperElement = document.querySelector(".desktop>.wallpaper");
-                this.clear();
+                this.clear("andrei");
                 this.defaultTerminalElement = document.querySelector(".desktop>.wallpaper>.terminal");
                 wallpaperElement.removeChild(wallpaperElement.querySelector(".terminal"));
                 this.closed = true;
@@ -242,6 +260,6 @@
         closeButtonElement.addEventListener("click", () => terminal.exit());
         maximizeButtonElement.addEventListener("click", () => terminal.changeSize());
         terminalIconElement.addEventListener("click", () => terminal.open());
-        terminalElement.addEventListener("click", () => document.querySelector(".desktop>.wallpaper>.terminal>.input-container input").focus());
+        terminalElement.addEventListener("click", () => terminalElement.querySelector(".input-container input").focus());
     }
 })()
