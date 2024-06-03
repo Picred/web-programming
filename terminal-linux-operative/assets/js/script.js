@@ -191,13 +191,13 @@
                 this.init();
             },
 
-            curl: function (url) {
+            curl: async function (url) {
                 const parent = this.inputContainerElement;
                 const responseElement = document.createElement("span");
 
                 this.removeChild();
 
-                fetch(url)
+                await fetch(url)
                     .then(response => response.text())
                     .then(data => {
                         responseElement.style = "color: #aaa;"
@@ -249,6 +249,7 @@
         };
         date.init();
         terminal.init();
+
 
         const minimizeButtonElement = document.querySelector(".desktop>.wallpaper>.terminal>.terminal-navbar>.minimize-button");
         const maximizeButtonElement = document.querySelector(".desktop>.wallpaper>.terminal>.terminal-navbar>.maximize-button");
