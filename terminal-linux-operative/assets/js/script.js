@@ -24,14 +24,14 @@
             emptyElement: document.createElement("span"),
 
             init: function () {
-                const spanElement = document.createElement("span");
-                spanElement.classList = ["username"];
-                spanElement.innerHTML = `${this.username}@ubuntu~$:`;
+                const usernameElement = document.createElement("span");
+                usernameElement.classList = ["username"];
+                usernameElement.innerHTML = `${this.username}@ubuntu~$:`;
 
                 const inputElement = document.createElement("input");
                 inputElement.type = "text";
 
-                this.inputContainerElement.appendChild(spanElement);
+                this.inputContainerElement.appendChild(usernameElement);
                 this.inputContainerElement.appendChild(inputElement);
                 inputElement.focus();
 
@@ -145,8 +145,8 @@
 
             removeChild: function () {
                 const parent = this.inputContainerElement;
-                const oldchild = this.inputContainerElement.querySelector("input");
-                parent.removeChild(oldchild);
+                const inputElement = this.inputContainerElement.querySelector("input");
+                parent.removeChild(inputElement);
             },
 
             user: function (username) {
@@ -156,6 +156,7 @@
                     this.removeChild();
                     const blank = document.createElement("span");
                     this.inputContainerElement.appendChild(blank); // grid
+                    this.username = username;
                     this.clear(username);
                 } else{
                     this.error("","Too long (max 10)");
@@ -224,12 +225,12 @@
 
             minimize: function(){
                 const terminalElement = document.querySelector(".desktop>.wallpaper>.terminal"); 
-                terminalElement.style = "display: none;"
+                terminalElement.style = "display: none;";
                 this.isMinimized = true;
             }
         };
         date.init();
-        terminal.init()
+        terminal.init();
 
         const minimizeButtonElement = document.querySelector(".desktop>.wallpaper>.terminal>.terminal-navbar>.minimize-button");
         const maximizeButtonElement = document.querySelector(".desktop>.wallpaper>.terminal>.terminal-navbar>.maximize-button");
