@@ -48,7 +48,7 @@
                 this.removeChild();
 
                 const responseElement = document.createElement("span");
-                responseElement.innerHTML = cmd;
+                responseElement.innerText = cmd;
                 responseElement.style = "overflow:hidden";
                 parent.appendChild(responseElement);
 
