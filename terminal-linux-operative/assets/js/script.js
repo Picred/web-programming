@@ -101,6 +101,8 @@
                         else
                             this.error("", "Use whoami without arguments")
                         break;
+                    case "": 
+                        break;
                     default:
                         this.error("command not found");
                         break;
