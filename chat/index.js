@@ -1,5 +1,4 @@
 const express = require('express');
-const { SocketAddress } = require('net');
 const app = express();
 const http = require('http').Server(app);
 const serverSocket = require('socket.io')(http);
@@ -16,20 +15,34 @@ app.get("/api/users", (req,res) => {
 serverSocket.on('connection', function(socket) {
     console.log("Client connesso");
 
-    // socket.broadcast.emit("connectedUsers", users);
+    socket.on("disconnect", () => {
+        console.log("Client disconnesso");
+        
+        for(index in users){
+            if(users[index] == socket.nickname){
+                users.splice(index,1);
+                break;
+            }
+        }
+
+        socket.broadcast.emit("userDisconnected", socket.nickname);
+
+    })
+
     socket.on("login", function(nickname) {
         users.push(nickname);
+        socket["nickname"] = nickname;
 
         socket.broadcast.emit("newuser", nickname);
     })
 
-    socket.on("diconnect", () => {
-        console.log("user disconnected");
+    socket.on("sendMessage", (message, from) => {
+        socket.broadcast.emit("newMessage", message, from);
     })
 
 })
 
 
-http.listen(9000, () => {
-    console.log("Server listening on port 9000");
+http.listen(8080, () => {
+    console.log("Server listening on port 8080");
 });
