@@ -1,0 +1,120 @@
+*, body, html{
+    margin : 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.desktop{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(100px, auto));
+    grid-template-rows: 5vh auto auto;
+    grid-template-areas:
+        "header header header header "
+        "sidebar . main main"
+        "footer footer footer footer ";
+
+        background: no-repeat center url("https://c4.wallpaperflare.com/wallpaper/345/565/86/computers-linux-wallpaper-preview.jpg");
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    
+    color: white;
+}
+
+
+.desktop>.header{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: right;
+    gap: 10px;
+    grid-area: header;
+
+    border: 1px solid red;
+}
+
+.desktop>.header> button{
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    border: none;
+}
+
+.desktop>.header> button:hover{
+    transform: scale(1.2);
+    color: azure;
+}
+
+
+.desktop>.header>.home{
+    grid-area:header;
+}
+
+.desktop>.header>.contacts{
+    grid-area:header;
+    padding-right:8px;
+}
+
+.desktop>.header>.about{
+    grid-area:header;
+}
+
+
+
+
+.desktop>.sidebar{
+    grid-area: sidebar;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    border: 1px solid red;
+}
+
+.desktop>.sidebar>.sidebar-elem{
+    border: 1px solid yellow;
+}
+
+
+.desktop>.main-content{
+    grid-area: main;
+    border: 1px solid red;
+}
+
+.desktop>.main-content>.apps-container{
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.desktop>.main-content>.apps-container>.main-app{
+    border:1px solid white;
+
+    width: 300px;
+    height: 100px;
+}
+
+
+.desktop>.footer{
+    grid-area: footer;
+    border: 1px solid red;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    background-color: #000;
+    border: 1px solid green;
+}
+
+.desktop > .footer > p{
+    margin:0;
+    padding:0;
+}
+
+
+.desktop > .footer > p > a{
+    color: white;
+    text-decoration: underline;
+}
