@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,8 +11,11 @@
     <title>Dashboard</title>
 </head>
 <body>
+    <!-- Uncomment for live coding  -->
+    <!-- <div class="loginform-container" style="display:none"> -->
 
-    <div class="loginform-container" > <!-- LiveCoding. add style="display:none"-->
+    <!-- Comment for live coding -->
+    <div class="loginform-container">
         <div class="loginform">
             <p>Login form</p>
             <input type="text" class="username" placeholder="Username" required>
@@ -21,11 +24,13 @@
         </div>
     </div>
 
-    <div class="desktop" > <!-- LiveCoding. add style="display:none"-->
+    <!-- Uncomment for live coding  -->
+    <!-- <div class="desktop" style="display:grid"> -->
+    
+    <!-- Comment for live coding -->
+    <div class="desktop"> 
         <div class="header">
-            <button class="home">Home</button>
-            <button class="about">About</button>
-            <button class="contacts">Contacts</button>
+            <p class="welcome">Welcome </p>
 
         </div>
 
@@ -42,13 +47,13 @@
 
         <div class="main-content">
             <div class="sensors-container">
-                <!-- <div class="sensor">
-                    Sensor1
+                <div class="sensor" sensor-name='${sensor.name}'>
+                    <p class='name'>Name: ${sensor.name}</p>
+                    <p class='type'>Type: ${sensor.type}</p>
+                    <p class='updateFreq'>Update time: ${sensor.updateFreq}</p>
+                    <progress class="sensor-val-bar" value="47" max ="100"></progress>
+                    <button class='delete-btn'>Delete sensor (<code>${sensor.name}</code>)</button>
                 </div>
-
-                <div class="sensor">
-                    Sensor2
-                </div> -->
             </div>
         </div>
 

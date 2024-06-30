@@ -66,11 +66,10 @@
 }
 
 
-
 .desktop{
     display: none;
     grid-template-columns: repeat(4, minmax(100px, auto));
-    grid-template-rows: 5vh auto auto;
+    grid-template-rows: 3vh auto 30px;
     grid-template-areas:
         "header header header header "
         "sidebar main main main"
@@ -90,6 +89,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     gap: 10px;
     grid-area: header;
 
@@ -98,17 +98,12 @@
     background-color: rgba(40, 40, 255, 0.3);
 }
 
-.desktop>.header> button{
-    background: transparent;
+.desktop>.header> p{
     color: inherit;
     font: inherit;
     border: none;
 }
 
-.desktop>.header> button:hover{
-    color: azure;
-    cursor: pointer;
-}
 
 
 .desktop>.header>.home{
@@ -134,7 +129,6 @@
     gap: 10px;
     align-items: center;
     justify-content: center;
-    border: 1px solid red;
 }
 
 .desktop>.sidebar>.sidebar-elem{
@@ -177,40 +171,55 @@
 }
 .desktop>.main-content{
     grid-area: main;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .desktop>.main-content>.sensors-container{
     display:flex;
     flex-wrap: wrap;
+    gap: 5px;
 }
 
 .desktop>.main-content>.sensors-container>.sensor{
-    border:1px solid white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    width: 300px;
-    height: 100px;
+    border: 3px solid white;
+    color: blueviolet;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    gap: 10px;
 }
+
+.desktop>.main-content>.sensors-container>.sensor> button{
+    background-color: transparent;
+    border: none;
+    padding: 2px;
+}
+
+.desktop>.main-content>.sensors-container>.sensor> button:hover{
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.4);
+    overflow: hidden;
+
+}
+
 
 
 .desktop>.footer{
     grid-area: footer;
-    border: 1px solid red;
 
     display: flex;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
     flex-direction: column;
-
-    background-color: #000;
-    border: 1px solid green;
 }
 
 .desktop > .footer > p{
     margin:0;
     padding:0;
 }
-
 
 .desktop > .footer > p > a{
     color: white;
