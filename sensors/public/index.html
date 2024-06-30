@@ -12,18 +12,16 @@
 </head>
 <body>
 
-    <div class="loginform-container">
+    <div class="loginform-container" > <!-- LiveCoding. add style="display:none"-->
         <div class="loginform">
-            <p>Login</p>
-            <input type="text" name="username" placeholder="Username" required>
-            <br>
-            <input type="password" name="psw" placeholder="Password" required>
-            <br>
+            <p>Login form</p>
+            <input type="text" class="username" placeholder="Username" required>
+            <input type="password" class="psw" placeholder="Password" required>
             <button class="login-btn">Login</button>
         </div>
     </div>
 
-    <div class="desktop grid">
+    <div class="desktop" > <!-- LiveCoding. add style="display:none"-->
         <div class="header">
             <button class="home">Home</button>
             <button class="about">About</button>
@@ -33,23 +31,24 @@
 
         <div class="sidebar">
             <div class="sidebar-elem">
-                Filter1
+                <p>New sensor</p>
+                <input type="text" class="sensor-type" placeholder="Type">
+                <input type="text" class="sensor-name" placeholder="Name">
+                <input type="number" class="sensor-update-frequency" placeholder="Update frequency (sec)">
+                <button class="add-sensor-btn">Add new sensor</button>
             </div>
 
-            <div class="sidebar-elem">
-                Filter2
-            </div>
         </div>
 
         <div class="main-content">
-            <div class="apps-container">
-                <div class="main-app">
-                    app1
+            <div class="sensors-container">
+                <!-- <div class="sensor">
+                    Sensor1
                 </div>
 
-                <div class="main-app">
-                    app2
-                </div>
+                <div class="sensor">
+                    Sensor2
+                </div> -->
             </div>
         </div>
 
