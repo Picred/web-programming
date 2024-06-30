@@ -4,6 +4,48 @@
     box-sizing: border-box;
 }
 
+.grid{
+    display: grid;
+}
+
+.loginform-container{
+    background: no-repeat center url("https://wallpapercave.com/wp/wp5502431.jpg");
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginform-container>.loginform{
+    box-shadow: 2px 2px 2px white;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.loginform-container>.loginform> p{
+    text-align: center;
+    font-size: 30px;
+    font-family: cursive;
+    padding-top: 10px;
+    font-style: italic;
+}
+
+.loginform-container>.loginform> input{
+    background: none;
+    border-radius: 10px;
+    border-color: black;
+    font-size: large;
+    padding: 20px;
+    margin: 15px;
+}
+
+
+
 .desktop{
     display: grid;
     grid-template-columns: repeat(4, minmax(100px, auto));
@@ -13,7 +55,7 @@
         "sidebar . main main"
         "footer footer footer footer ";
 
-        background: no-repeat center url("https://c4.wallpaperflare.com/wallpaper/345/565/86/computers-linux-wallpaper-preview.jpg");
+    background: no-repeat center url("https://wallpapercave.com/wp/wp5502431.jpg");
     width: 100vw;
     height: 100vh;
     background-size: cover;
