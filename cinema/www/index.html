@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
+    <title>Cinema</title>
+</head>
+
+<body>
+    <div class="loginform-container">
+        <div class="loginform">
+            <input type="text" class="username" placeholder="Username" required>
+            <input type="password" class="password" placeholder="Password" required>
+            <button class="login-btn">Login</button>
+        </div>
+    </div>
+
+
+    <div class="dashboard hidden">
+        <header class="header">
+            <input type="text" class="movie-title" placeholder="Title" required>
+            <input type="text" class="movie-description" placeholder="Description" required>
+            <button class="add-btn">Add new film</button>
+        </header>
+
+        <div class="movies-container">
+            <div class="movie-info">
+                <h3 class="movie-title">Movie Title</h3>
+                <p class="movie-description">Movie Description</p>
+                <button class="delete-btn">Delete</button>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p> Copyright ©<script>document.write(new Date().getFullYear())</script> 
+            </p><p>Designed with 💜 by Andrei</p>
+          </footer>
+    </div>
+</body>
+</html>
